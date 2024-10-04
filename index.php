@@ -16,15 +16,15 @@
                 <form action="" method="POST">
                     <div class="form-group">
                         <label for="gamma_input">Enter value for Gamma function (n):</label>
-                        <input type="number" name="gamma_input" class="form-control" placeholder="Gamma(n)">
+                        <input type="number" name="gamma_input" class="form-control" placeholder="Gamma(n)" required>
                     </div>
                     <div class="form-group">
                         <label for="beta_input_x">Enter value for Beta function (x):</label>
-                        <input type="number" name="beta_input_x" class="form-control" placeholder="Beta(x, y)">
+                        <input type="number" name="beta_input_x" class="form-control" placeholder="Beta(x, y)" required>
                     </div>
                     <div class="form-group">
                         <label for="beta_input_y">Enter value for Beta function (y):</label>
-                        <input type="number" name="beta_input_y" class="form-control" placeholder="Beta(x, y)">
+                        <input type="number" name="beta_input_y" class="form-control" placeholder="Beta(x, y)" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Calculate</button>
                 </form>
@@ -34,17 +34,26 @@
         <div class="card mt-5">
             <div class="card-body">
                 <h3>Gamma and Beta Functions Explained</h3>
-                <p><strong>Gamma Function:</strong></p>
-                <p>The Gamma function is an extension of the factorial function, with its argument shifted down by 1. 
-                It is defined as an improper integral that converges for positive values:</p>
+                <p><strong>Gamma Function:</strong> The Gamma function is an extension of the factorial function. For positive integers n, it is defined as:</p>
                 <pre>Γ(n) = ∫_0^∞ t^(n-1) * e^(-t) dt</pre>
+                <p><strong>Properties:</strong></p>
+                <ul>
+                    <li>Γ(n) = (n-1)!</li>
+                    <li>Γ(n+1) = n * Γ(n)</li>
+                    <li>Γ(1) = 1, Γ(1/2) = √π</li>
+                </ul>
 
-                <p><strong>Beta Function:</strong></p>
-                <p>The Beta function is a special function that is closely related to the Gamma function. 
-                It is defined as:</p>
+                <p><strong>Beta Function:</strong> The Beta function is defined as:</p>
                 <pre>B(x, y) = ∫_0^1 t^(x-1) * (1-t)^(y-1) dt</pre>
+                <p><strong>Properties:</strong></p>
+                <ul>
+                    <li>B(x, y) = (Γ(x) * Γ(y)) / Γ(x + y)</li>
+                    <li>B(1, 1) = 1</li>
+                    <li>B(x, 1) = 1/x</li>
+                </ul>
 
-                <p>The program calculates these functions using integration techniques and approximations.</p>
+                <p><strong>Integration Steps:</strong></p>
+                <p>To calculate these functions using integration, we set up the integrals as defined above and evaluate them either through numerical methods or using known properties and identities of the Gamma and Beta functions.</p>
             </div>
         </div>
 
@@ -57,12 +66,12 @@
                     $beta_input_x = $_POST['beta_input_x'];
                     $beta_input_y = $_POST['beta_input_y'];
 
-                    // Gamma function calculation (approximation)
+                    // Gamma function calculation (using built-in PHP function)
                     function gamma_function($n) {
-                        return gmp_strval(gmp_fact($n - 1)); // Using factorial for approximation
+                        return gamma($n); // PHP built-in gamma function
                     }
 
-                    // Beta function calculation (using Gamma function relationship)
+                    // Beta function calculation using the Gamma function relationship
                     function beta_function($x, $y) {
                         return gamma_function($x) * gamma_function($y) / gamma_function($x + $y);
                     }
@@ -84,3 +93,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
+
